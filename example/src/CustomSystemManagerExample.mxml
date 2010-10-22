@@ -5,7 +5,7 @@
 	xmlns:mx="library://ns.adobe.com/flex/mx" 
 	minWidth="320" minHeight="600"
 	preloader="com.custardbelly.manager.example.CustomContextPreloader" 
-	viewSourceURL="srcview/index.html">
+>
 	
 	<!-- Can't declare [FRAME] metadata in <s:Metadata /> tag of main MXML application. Needs to be in AS -->
 	

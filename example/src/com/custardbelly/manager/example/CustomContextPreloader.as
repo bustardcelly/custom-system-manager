@@ -10,7 +10,6 @@ package com.custardbelly.manager.example
 	
 	import mx.events.RSLEvent;
 	import mx.graphics.RectangularDropShadow;
-	import mx.preloaders.Preloader;
 	
 	/**
 	 * CustomContextPreloader is an extension of the CustomPreloader to trap frame suspension and resume. 
@@ -29,7 +28,11 @@ package com.custardbelly.manager.example
 		public function CustomContextPreloader() 
 		{ 
 			super();
-			_applicationContextProxy = ApplicationContextProxy.instance;
+		}
+		
+		override public function set preloader(value:Sprite):void
+		{
+			super.preloader = value;
 		}
 		
 		/**
@@ -59,11 +62,16 @@ package com.custardbelly.manager.example
 		 */
 		override protected function onFrameSuspension():void
 		{
+			if( !_isOnDisplay ) createChildren();
+			
+			_applicationContextProxy = ApplicationContextProxy.instance;
 			// Add handlers and update ui.
 			addApplicationContextHandlers();
 			_messageField.text = "Loading application context...";
 			//load the application context.
 			_applicationContextProxy.loadApplicationContext();
+			// Faking progress for this example. Unfortunately SAS does not dispatch a progress event when loading context :(
+			setInitProgress( 75, 100 );
 		}
 		
 		/**
